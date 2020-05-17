@@ -2,6 +2,7 @@ import React from "react";
 import {
     View,
     Text,
+    TouchableOpacity,
     StyleSheet,
     Platform
 } from "react-native";
@@ -10,8 +11,10 @@ import { withNavigation } from 'react-navigation'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { connect } from 'react-redux'
+
 const ShoppingCartIcon = (props) => (
-    <View style={[{ padding: 5 }, Platform.OS == 'android' ? styles.iconContainer : null]}>
+    <TouchableOpacity onPress={() => props.navigation.navigate('Cart')}>
+    <View style={{ padding: 15} } >
         <View style={{
             position: 'absolute', height: 30, width: 30, borderRadius: 15, backgroundColor: 'rgba(95,197,123,0.8)', right: 25, bottom: 25, alignItems: 'center', justifyContent: 'center', zIndex: 2000,
 
@@ -20,6 +23,7 @@ const ShoppingCartIcon = (props) => (
         </View>
         <Icon onPress={() => props.navigation.navigate('Cart')} name="ios-cart" size={50} />
     </View>
+    </TouchableOpacity>
 )
 
 const mapStateToProps = (state) => {
