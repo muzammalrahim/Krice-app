@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+import {View, Text, StyleSheet, Button, Vibration} from 'react-native';
 import {Card} from 'react-native-elements';
 import {connect} from "react-redux";
 import {withNavigation} from "react-navigation";
@@ -44,7 +44,7 @@ class Details extends React.Component {
                 </View>
                 <View style={styles.buttons}>
                     <View style={styles.row}>
-                        <Button title="Add to cart" type="solid" onPress={()=>{this.props.addItemToCart({id:id,name:name,price:price,img:img});this.showToast()}}/>
+                        <Button title="Add to cart" type="solid"  onPress={()=>{this.showToast()}}/>
                         <Button title="Buy Now" type="solid"  onPress={() => this.props.navigation.navigate('Buy', {
                             name: name,
                             price: price,
@@ -56,8 +56,46 @@ class Details extends React.Component {
         );
     }
     showToast = ()=>{
-        Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+        const {navigation} = this.props;
+        const id = navigation.getParam('id');
+        const img = navigation.getParam('img');
+        const price = navigation.getParam('price');
+        const name = navigation.getParam('name');
+        if(this.props.cartItems.length > 0) {
+            let data =this.props.cartItems;
+            let checker = false;
+            for(let i=0;i<this.props.cartItems.length;i++){
+
+                if (data[i].id == id){
+                    Toast.show("Item Is already in Cart",Toast.SHORT);
+                    checker =true;
+                    Vibration.vibrate()
+                    break;
+                }
+
+            }
+            if(checker == false){
+                this.props.addItemToCart({
+                    id: id,
+                    name: name,
+                    price: price,
+                    img: img
+                })
+                Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+            }
+
+
+        }else{
+            this.props.addItemToCart({
+                id: id,
+                name: name,
+                price:price,
+                img: img
+            })
+            Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+        }
     }
+
 }
 
 const styles = StyleSheet.create({
@@ -94,4 +132,10 @@ const mapDispatchToProps = (dispatch) => {
         addItemToCart: (product) => dispatch({ type: 'ADD_TO_CART', payload: product })
     }
 }
-export default connect(null, mapDispatchToProps)(Details);
+
+const mapStateToProps = (state) => {
+    return {
+        cartItems: state
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

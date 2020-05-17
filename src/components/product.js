@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity,Vibration} from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import ImageOverlay from "./imageOverlay";
@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import Toast from 'react-native-simple-toast';
 
 class Product extends React.Component {
+
+
     render() {
         return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {
@@ -39,7 +41,7 @@ class Product extends React.Component {
                 <Button style={styles.btnStyle}
                         type="solid"
                         title='Add To Cart'
-                        onPress={()=>{this.props.addItemToCart({id:this.props.product.id,name:this.props.product.name,price:this.props.product.price,img:this.props.product.img});this.showToast()}}
+                        onPress={()=>{this.showToast()}}
                          />
 
 
@@ -48,7 +50,39 @@ class Product extends React.Component {
         );
     }
 showToast = ()=>{
-    Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+        if(this.props.cartItems.length > 0) {
+            let data =this.props.cartItems;
+            let checker = false;
+            for(let i=0;i<this.props.cartItems.length;i++){
+
+                if (data[i].id == this.props.product.id){
+                   Toast.show("Item Is already in Cart",Toast.SHORT);
+                    checker =true;
+                    Vibration.vibrate()
+                   break;
+                }
+
+            }
+            if(checker == false){
+                this.props.addItemToCart({
+                    id: this.props.product.id,
+                    name: this.props.product.name,
+                    price: this.props.product.price,
+                    img: this.props.product.img
+                })
+                Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+            }
+
+
+        }else{
+            this.props.addItemToCart({
+                id: this.props.product.id,
+                name: this.props.product.name,
+                price: this.props.product.price,
+                img: this.props.product.img
+            })
+            Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+        }
 }
 
 }
@@ -81,5 +115,9 @@ const mapDispatchToProps = (dispatch) => {
         addItemToCart: (product) => dispatch({ type: 'ADD_TO_CART', payload: product })
     }
 }
-
-export default connect(null, mapDispatchToProps)(withNavigation(Product));
+const mapStateToProps = (state) => {
+    return {
+        cartItems: state
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Product));

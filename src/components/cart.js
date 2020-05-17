@@ -94,9 +94,10 @@ class Cart extends Component {
 componentDidMount() {
     this.setState({
         data:this.props.cartItems,
+
     },()=>{
         this.state.data.forEach((data,index)=>{
-            console.log('st:::::::::::',data.id)
+            console.log('st:::::::::::',data.price);
         })
     })
 }
@@ -109,10 +110,10 @@ componentDidMount() {
             <View style={styles.wrapper}>
                 <ScrollView>
 
-                    <View style={styles.container}>
+                    <View style={styles.containerCart}>
                         <Text style={styles.textSize}>Your Cart</Text>
                     </View>
-                    {this.state.data.map((data,index)=>{ return (<View style={styles.container}>
+                    {this.state.data.map((data,index)=>{ return (<View key={data.id} style={styles.container}>
                         <Image style={styles.img} source={{uri: (data.img)}}/>
                         <View style={styles.rightcol}>
                             <Text style={styles.productName}>Name: {data.name}</Text>
@@ -134,6 +135,7 @@ componentDidMount() {
                                 <View style={styles.price}>
                                     <Text>Rs {data.price}</Text>
                                 </View>
+                                <Text>Remove from cart</Text>
                             </View>
                             <View style={styles.row}>
                                 <Button color='lightgray' title='-' onPress={this.quantityDecrement}/>
@@ -170,12 +172,21 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1
     },
+    containerCart: {
+        flexDirection: 'row',
+        marginTop: 20,
+        marginLeft: 10,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+
+    },
     container: {
         flexDirection: 'row',
         marginTop: 20,
         marginLeft: 10,
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
+        borderTopWidth:2
     },
     textSize: {
         fontSize: 20,
