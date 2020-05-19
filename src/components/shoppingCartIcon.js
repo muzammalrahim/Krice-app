@@ -19,9 +19,9 @@ const ShoppingCartIcon = (props) => (
             position: 'absolute', height: 30, width: 30, borderRadius: 15, backgroundColor: 'rgba(95,197,123,0.8)', right: 25, bottom: 25, alignItems: 'center', justifyContent: 'center', zIndex: 2000,
 
         }}>
-            <Text onPress={() => props.navigation.navigate('Cart')} style={{ color: 'white', fontWeight: 'bold' }}>{props.cartItems.length}</Text>
+            <Text  style={{ color: 'white', fontWeight: 'bold' }}>{props.cartItems.length}</Text>
         </View>
-        <Icon onPress={() => props.navigation.navigate('Cart')} name="ios-cart" size={50} />
+        <Icon name="ios-cart" size={50} />
     </View>
     </TouchableOpacity>
 )

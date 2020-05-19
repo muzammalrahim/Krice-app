@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView, Image, Button} from 'react-native';
-import {Picker} from '@react-native-community/picker';
+import {StyleSheet, Text, View, ScrollView, Image, Button, Picker, TouchableOpacity} from 'react-native';
+
 import {connect} from "react-redux";
+
 
 class Cart extends Component {
     price5kg;
     price10kg;
     price15kg;
     currentItem;
+    sum_total=0
+
+    quantity = [];
 
     constructor(props, context) {
         super(props, context);
@@ -19,15 +23,18 @@ class Cart extends Component {
         this.currentItemValue = this.price5kg;
         this.price5kg = 1500;
         this.state = {
-            data:[],
-            value: 500,
-            quantity: 1,
-            valueSelected: 500
+            data: [],
+            sum_total:0,
+
+
         };
         this.quantityIncrement = this.quantityIncrement.bind(this);
         this.quantityDecrement = this.quantityDecrement.bind(this);
 
-        this.currentItem = this.price5kg
+        this.currentItem = this.price5kg;
+        for (let i=0;i<this.props.cartItems.length ; i++){
+            this.quantity[i] = 1
+        }
 
     }
 
@@ -47,17 +54,32 @@ class Cart extends Component {
     //     ;
     // }
 
-    quantityIncrement() {
+    quantityIncrement(index, price) {
+        this.quantity[index] = this.quantity[index] + 1;
+
+        let stateCopy = Object.assign({},this.state.data)
+        // console.log("stateCopy[index]stateCopy[index]",index,stateCopy[index]);
+       stateCopy[index].quantity = this.quantity[index]
+        stateCopy[index].total = this.quantity[index] * price
+        this.setState(stateCopy);
+        console.log(this.state.data)
+
+        if(this.props.cartItems.length > 0) {
+            this.sum_total = this.props.cartItems.reduce((first, elements) => {
+                console.log("firstfirstfirstfirstfirst", elements)
+                return (first + elements.total)
+            },0)
+        }
         this.setState({
-            quantity: this.state.quantity + 1
-        }, () => {
-            this.setState({
-                value: (this.currentItemValue * this.state.quantity),
-            })
+            sum_total:this.sum_total
+        },()=>{
+            console.log(this.state)
         })
+
     }
 
-    quantityDecrement() {
+    quantityDecrement(e) {
+        // console.log("eeeeeeee",e);
         if (this.state.quantity > 1) {
             this.setState({
                 quantity: this.state.quantity - 1
@@ -91,80 +113,156 @@ class Cart extends Component {
         }
         this.setState({valueSelected: value})
     }
-componentDidMount() {
-    this.setState({
-        data:this.props.cartItems,
 
-    },()=>{
-        this.state.data.forEach((data,index)=>{
-            console.log('st:::::::::::',data.price);
+    // static getDerivedStateFromProps(props,state) {
+    //
+    //      //  this.setState({
+    //      //     data: this.props.cartItems,
+    //      //
+    //      // }, () => {
+    //      //
+    //      //     this.setState({
+    //      //         data: this.state.data.map((data, index) => {
+    //      //             data.total = data.price,
+    //      //                 data.quantity = 1
+    //      //             return data;
+    //      //         })
+    //      //     })
+    //      // })
+    //     return {
+    //         data: props.cartItems.map((data, index) => {
+    //             data.total = data.price,
+    //                 data.quantity = 1
+    //             return data;
+    //         })
+    //     }
+    //  }
+    componentDidMount() {
+        this.setState({
+            data: this.props.cartItems.map((data, index) => {
+                data.total = data.price,
+                    data.quantity = 1
+                return data;
+            })
+        },()=>{
+            if(this.props.cartItems.length > 0) {
+                this.sum_total = this.props.cartItems.reduce((first, elements) => {
+                    console.log("firstfirstfirstfirstfirst", elements)
+                    return (first + elements.total)
+                },0)
+            }
+            this.setState({
+                sum_total:this.sum_total
+            })
         })
-    })
+
+
+    }
+
+
+propsChange = ()=>{
+        for(let key in this.quantity){
+            this.quantity[key] =1;
+        }
+        setTimeout(()=>{
+            if(this.props.cartItems.length > 0) {
+                this.sum_total = this.props.cartItems.reduce((first, elements) => {
+                    console.log("firstfirstfirstfirstfirst", elements)
+                    return (first + elements.price)
+                },0)
+            }
+            this.setState({
+                sum_total:this.sum_total
+            })
+        },159)
+
 }
 
     render() {
-        console.log('props',this.props.cartItems)
-
-
-        return (
-            <View style={styles.wrapper}>
+        // console.log('props',this.props.cartItems)
+        let innerContent = '';
+        if (this.props.cartItems.length > 0) {
+            innerContent = <View style={styles.wrapper}>
                 <ScrollView>
-
                     <View style={styles.containerCart}>
                         <Text style={styles.textSize}>Your Cart</Text>
                     </View>
-                    {this.state.data.map((data,index)=>{ return (<View key={data.id} style={styles.container}>
-                        <Image style={styles.img} source={{uri: (data.img)}}/>
-                        <View style={styles.rightcol}>
-                            <Text style={styles.productName}>Name: {data.name}</Text>
+                    {this.props.cartItems.map((data, index) => {
+                        return (<View key={data.id} style={styles.container}>
+                            <Image style={styles.img} source={{uri: (data.img)}}/>
+                            <View style={styles.rightcol}>
+                                <Text style={styles.productName}>Name: {data.name}</Text>
 
-                            <View style={styles.row}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <Picker style={{
-                                        width: 150,
-                                        borderBottomWidth: 1,
-                                        borderTopWidth: 1,
-                                        borderLeftWidth: 1,
-                                        borderRightWidth: 1
-                                    }} selectedValue={this.state.valueSelected} onValueChange={this.updateUser}>
-                                        <Picker.Item label="5 KG" value={this.price5kg}/>
-                                        <Picker.Item label="10 KG" value={this.price10kg}/>
-                                        <Picker.Item label="15 KG" value={this.price15kg}/>
-                                    </Picker>
+                                <View style={styles.row}>
+                                    <View style={{flexDirection: 'row'}}>
+                                        <Picker style={{
+                                            width: 150,
+                                            borderBottomWidth: 1,
+                                            borderTopWidth: 1,
+                                            borderLeftWidth: 1,
+                                            borderRightWidth: 1
+                                        }} selectedValue={this.state.valueSelected} onValueChange={this.updateUser}>
+                                            <Picker.Item label="5 KG" value={this.price5kg}/>
+                                            <Picker.Item label="10 KG" value={this.price10kg}/>
+                                            <Picker.Item label="15 KG" value={this.price15kg}/>
+                                        </Picker>
+                                    </View>
+                                    <View style={styles.price}>
+                                        <Text>Rs {this.quantity[index] * data.price}</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={() => {
+                                        this.props.removeItem(data); this.propsChange();
+                                    }}>
+                                        <View style={{
+                                            position: 'relative',
+                                            height: 30,
+                                            width: 30,
+                                            borderRadius: 15,
+                                            backgroundColor: 'rgba(255,0,0,0.8)',
+                                            right: -10,
+                                            bottom: 0,
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            zIndex: 2000,
+
+                                        }}>
+                                            <Text style={{color: 'white', fontWeight: 'bold'}}>-</Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
-                                <View style={styles.price}>
-                                    <Text>Rs {data.price}</Text>
+                                <View style={styles.row}>
+                                    <Button color='lightgray' title='-'
+                                            onPress={() => {this.quantityDecrement(data.id)}}/>
+                                    <Text style={{padding: 5}}>{this.quantity[index]}</Text>
+                                    <Button style={{marginRight: 10}} title='+'
+                                            onPress={() => this.quantityIncrement(index, data.price)}/>
                                 </View>
-                                <Text>Remove from cart</Text>
+
                             </View>
-                            <View style={styles.row}>
-                                <Button color='lightgray' title='-' onPress={this.quantityDecrement}/>
-                                <Text style={{padding: 5}}>{this.state.quantity}</Text>
-                                <Button style={{marginRight: 10}} title='+' onPress={this.quantityIncrement}/>
-                            </View>
-
-                        </View>
-                    </View>)})}
-
-
+                        </View>)
+                    })}
                     <View style={styles.total}>
                         <Text style={styles.totalText}>Total</Text>
-                        <Text style={styles.totalValue}>{this.state.value}</Text>
+                        <Text style={styles.totalValue}>{this.state.sum_total}</Text>
                     </View>
-
                 </ScrollView>
                 <View style={styles.grandTotal}><View style={styles.row}>
                     <Text style={styles.textSize}>Grand
                         Total:
                     </Text>
                     <Text style={styles.Rs}>
-                        Rs.{this.state.value}
+                        Rs.{this.state.sum_total}
                     </Text>
                 </View>
                     <Button type="solid" title="Confirm"/>
                 </View>
             </View>
-        );
+        } else {
+            innerContent =
+                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><Text>No items in your
+                    cart</Text></View>
+        }
+        return innerContent;
     }
 }
 
@@ -186,7 +284,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        borderTopWidth:2
+        borderTopWidth: 2
     },
     textSize: {
         fontSize: 20,
@@ -261,6 +359,7 @@ const styles = StyleSheet.create({
 
 });
 const mapStateToProps = (state) => {
+
     return {
         cartItems: state
     }
@@ -268,10 +367,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        removeItem: (product) => dispatch({ type: 'REMOVE_FROM_CART', payload: product })
+        removeItem: (product) => {
+            dispatch({type: 'REMOVE_FROM_CART', payload: product})
+
+        }
     }
 }
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

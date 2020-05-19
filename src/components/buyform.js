@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput, Image, ScrollView, Button} from "react-native";
-import {Picker} from '@react-native-community/picker';
+import {Text, View, StyleSheet, TextInput, Image, ScrollView, Button,Picker} from "react-native";
+
 
 
 class Buyform extends Component {
@@ -135,8 +135,8 @@ class Buyform extends Component {
                                         borderRightWidth: 1
                                     }} selectedValue={this.state.valueSelected} onValueChange={this.updateUser}>
                                         <Picker.Item label="5 KG" value={this.price5kg}/>
-                                        <Picker.Item label="10 KG" value={this.price10kg}/>
-                                        <Picker.Item label="15 KG" value={this.price15kg}/>
+                                        <Picker.Item label="15 KG" value={this.price10kg}/>
+                                        <Picker.Item label="25 KG" value={this.price15kg}/>
                                     </Picker>
                                 </View>
                                 <View style={styles.price}>
