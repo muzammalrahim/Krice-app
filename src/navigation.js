@@ -8,6 +8,7 @@ import Cart from "./components/cart";
 import Buyform from "./components/buyform";
 import ShoppingCartIcon from "./components/shoppingCartIcon";
 import {createAppContainer} from "react-navigation";
+import BuyformCart from "./components/buyformcart";
 const ImageHeader = props => (
         <Header {...props} style={{ backgroundColor: 'transparent' }}/>
 );
@@ -28,6 +29,10 @@ const AppNavigator = createStackNavigator(
         },
         Buy: {
             screen: Buyform,
+            navigationOptions: { title: 'Buy' }
+        },
+        BuyCart: {
+            screen: BuyformCart,
             navigationOptions: { title: 'Buy' }
         }
     },

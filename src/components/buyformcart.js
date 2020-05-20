@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import {Text, View, StyleSheet, TextInput, Image, ScrollView, Button,Picker} from "react-native";
+import {Text, View, StyleSheet, TextInput, Image, ScrollView, Button, Picker, TouchableOpacity} from "react-native";
 
 
 
-class Buyform extends Component {
+class BuyformCart extends Component {
     price5kg;
     price10kg;
     price15kg;
     currentItem;
     currentItemValue;
+    quantity = [];
     constructor(props) {
         super(props);
         const {navigation} = this.props;
@@ -47,12 +48,8 @@ class Buyform extends Component {
         this.quantityIncrement = this.quantityIncrement.bind(this);
         this.quantityDecrement = this.quantityDecrement.bind(this);
 
-
     }
 
-    onSelectedItemsChange = (key, value) => {
-
-    }
 
     quantityIncrement() {
         this.setState({
@@ -107,9 +104,9 @@ class Buyform extends Component {
 
     render() {
         const {navigation} = this.props;
-        const img = navigation.getParam('img');
-        const price = navigation.getParam('price');
-        const name = navigation.getParam('name');
+        const data = navigation.getParam('data');
+        const total = navigation.getParam('total');
+
 
         return (
             <View style={styles.container}>
@@ -120,37 +117,40 @@ class Buyform extends Component {
                         </Text>
 
 
-                        <View style={styles.container1}>
-                            <Image style={styles.img} source={{uri: (img)}}/>
-                            <View style={styles.rightcol}>
-                                <Text style={styles.productName}>Name: {name}</Text>
+                        {data.map((data, index) => {
+                            return (<View key={data.id} style={styles.container1}>
+                                <Image style={styles.img} source={{uri: (data.img)}}/>
+                                <View style={styles.rightcol}>
+                                    <Text style={styles.productName}>Name: {data.name}</Text>
 
-                                <View style={styles.row}>
-                                    <View style={{flexDirection: 'row'}}>
-                                        <Picker style={{
-                                            width: 150,
-                                            borderBottomWidth: 1,
-                                            borderTopWidth: 1,
-                                            borderLeftWidth: 1,
-                                            borderRightWidth: 1
-                                        }} selectedValue={this.state.valueSelected} onValueChange={this.updateUser}>
-                                            <Picker.Item label="5 KG" value={this.price5kg}/>
-                                            <Picker.Item label="15 KG" value={this.price10kg}/>
-                                            <Picker.Item label="25 KG" value={this.price15kg}/>
-                                        </Picker>
-                                    </View>
-                                    <View style={styles.price}>
-                                        <Text>Rs {price}</Text>
-                                    </View>
-                                </View>
-                                <View style={styles.row}>
-                                    <Button color='lightgray' title='-' onPress={this.quantityDecrement}/>
-                                    <Text style={{padding: 5}}>{this.state.quantity}</Text>
-                                    <Button style={{marginRight: 10}} title='+' onPress={this.quantityIncrement}/>
-                                </View>
+                                    <View style={styles.row}>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Picker style={{
+                                                width: 150,
 
-                            </View>
-                        </View>
+                                            }} selectedValue={this.state.valueSelected} onValueChange={this.updateUser}>
+                                                <Picker.Item label="5 KG" value={this.price5kg}/>
+                                                <Picker.Item label="10 KG" value={this.price10kg}/>
+                                                <Picker.Item label="15 KG" value={this.price15kg}/>
+                                            </Picker>
+                                        </View>
+                                        <View style={styles.price}>
+                                            <Text>Rs {data.quantity * data.price}</Text>
+                                        </View>
+
+                                    </View>
+                                    <View style={styles.quantityrow}>
+
+                                        <Text style={{padding: 5}}>Quantity : {data.quantity}</Text>
+
+                                    </View>
+
+                                </View>
+                            </View>)
+                        })}
+
+
+
                         <View
                             style={
                                 {
@@ -236,6 +236,9 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
+        maxHeight:100,
+        borderTopWidth: 2,
+
     },
     textSize: {
         fontSize: 20,
@@ -247,6 +250,12 @@ const styles = StyleSheet.create({
     },
     productName: {
         fontSize: 14,
+    },
+    quantityrow:{
+        flex: 1, flexDirection: 'row',
+
+
+
     },
     productQuantity: {
         fontSize: 14,
@@ -366,4 +375,4 @@ const styles = StyleSheet.create({
     // },
     row: {flex: 1, flexDirection: 'row'},
 })
-export default Buyform;
+export default BuyformCart;

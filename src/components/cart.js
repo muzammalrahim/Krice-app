@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView, Image, Button, Picker, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Image, Button, Picker, TouchableOpacity,Alert} from 'react-native';
 
 import {connect} from "react-redux";
 
@@ -54,39 +54,64 @@ class Cart extends Component {
     //     ;
     // }
 
+
     quantityIncrement(index, price) {
         this.quantity[index] = this.quantity[index] + 1;
 
-        let stateCopy = Object.assign({},this.state.data)
-        // console.log("stateCopy[index]stateCopy[index]",index,stateCopy[index]);
-       stateCopy[index].quantity = this.quantity[index]
-        stateCopy[index].total = this.quantity[index] * price
-        this.setState(stateCopy);
-        console.log(this.state.data)
-
-        if(this.props.cartItems.length > 0) {
-            this.sum_total = this.props.cartItems.reduce((first, elements) => {
-                console.log("firstfirstfirstfirstfirst", elements)
-                return (first + elements.total)
-            },0)
-        }
         this.setState({
-            sum_total:this.sum_total
+            data: this.props.cartItems
         },()=>{
-            console.log(this.state)
+
+            let stateCopy = Object.assign({},this.state.data)
+            // console.log("stateCopy[index]stateCopy[index]",index,stateCopy[index]);
+            stateCopy[index].quantity = this.quantity[index]
+            stateCopy[index].total = this.quantity[index] * price
+            this.setState(stateCopy);
+            console.log(this.state.data)
+
+            if(this.props.cartItems.length > 0) {
+                this.sum_total = this.props.cartItems.reduce((first, elements) => {
+                    console.log("firstfirstfirstfirstfirst", elements)
+                    return (first + elements.total)
+                },0)
+            }
+            this.setState({
+                sum_total:this.sum_total
+            },()=>{
+                console.log(this.state)
+            })
         })
+
+
+
 
     }
 
-    quantityDecrement(e) {
+    quantityDecrement(index,price) {
         // console.log("eeeeeeee",e);
-        if (this.state.quantity > 1) {
+        if (this.quantity[index] > 1) {
+            this.quantity[index] = this.quantity[index] - 1;
             this.setState({
-                quantity: this.state.quantity - 1
+                data: this.props.cartItems
+            })
+
+            let stateCopy = Object.assign({}, this.state.data)
+            // console.log("stateCopy[index]stateCopy[index]",index,stateCopy[index]);
+            stateCopy[index].quantity = this.quantity[index]
+            stateCopy[index].total = this.quantity[index] * price
+            this.setState(stateCopy);
+            console.log(this.state.data)
+
+            if (this.props.cartItems.length > 0) {
+                this.sum_total = this.props.cartItems.reduce((first, elements) => {
+                    console.log("firstfirstfirstfirstfirst", elements)
+                    return (first + elements.total)
+                }, 0)
+            }
+            this.setState({
+                sum_total: this.sum_total
             }, () => {
-                this.setState({
-                    value: this.state.value - this.currentItemValue,
-                })
+                console.log(this.state)
             })
         }
     }
@@ -161,23 +186,44 @@ class Cart extends Component {
 
 
 propsChange = ()=>{
-        for(let key in this.quantity){
-            this.quantity[key] =1;
-        }
+        // for(let key in this.quantity){
+        //     this.quantity[key] =1;
+        // }
         setTimeout(()=>{
-            if(this.props.cartItems.length > 0) {
-                this.sum_total = this.props.cartItems.reduce((first, elements) => {
-                    console.log("firstfirstfirstfirstfirst", elements)
-                    return (first + elements.price)
-                },0)
-            }
             this.setState({
-                sum_total:this.sum_total
+                data: this.props.cartItems.map((data, index) => {
+                    data.total = data.price,
+                        data.quantity = 1
+                    return data;
+                })
+            },()=> {
+                if (this.props.cartItems.length > 0) {
+                    if (this.props.cartItems.length > 0) {
+                        this.sum_total = this.props.cartItems.reduce((first, elements) => {
+                            console.log("firstfirstfirstfirstfirst", elements)
+                            return (first + elements.price)
+                        }, 0)
+                        for (let key in this.quantity) {
+                            this.quantity[key] = 1;
+                        }
+                    }
+                    this.setState({
+                        sum_total: this.sum_total
+                    })
+                }
             })
         },159)
 
-}
 
+}
+confirm=()=>{
+
+
+    this.props.navigation.navigate('BuyCart',{
+        data:this.state.data,
+        total:this.state.sum_total
+    })
+}
     render() {
         // console.log('props',this.props.cartItems)
         let innerContent = '';
@@ -232,7 +278,7 @@ propsChange = ()=>{
                                 </View>
                                 <View style={styles.row}>
                                     <Button color='lightgray' title='-'
-                                            onPress={() => {this.quantityDecrement(data.id)}}/>
+                                            onPress={() => {this.quantityDecrement(index, data.price)}}/>
                                     <Text style={{padding: 5}}>{this.quantity[index]}</Text>
                                     <Button style={{marginRight: 10}} title='+'
                                             onPress={() => this.quantityIncrement(index, data.price)}/>
@@ -254,7 +300,7 @@ propsChange = ()=>{
                         Rs.{this.state.sum_total}
                     </Text>
                 </View>
-                    <Button type="solid" title="Confirm"/>
+                    <Button type="solid" onPress={()=>this.confirm()} title="Confirm"/>
                 </View>
             </View>
         } else {
