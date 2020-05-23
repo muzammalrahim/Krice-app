@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, Image, ScrollView, Button, Picker, TouchableOpacity} from "react-native";
-
+import FormDetails from "./form_details";
 
 
 class BuyformCart extends Component {
@@ -10,6 +10,7 @@ class BuyformCart extends Component {
     currentItem;
     currentItemValue;
     quantity = [];
+
     constructor(props) {
         super(props);
         const {navigation} = this.props;
@@ -20,7 +21,7 @@ class BuyformCart extends Component {
         this.price10kg = this.price5kg * 2;
         this.price15kg = this.price5kg * 3;
         this.currentItem = '5KG';
-        this.currentItemValue =  this.price5kg;
+        this.currentItemValue = this.price5kg;
         this.price5kg = price;
         this.items = [
             {key: 1, label: "G-5, Islamabad"},
@@ -101,6 +102,9 @@ class BuyformCart extends Component {
     updateSector = (sector) => {
         this.setState({sector: sector})
     }
+    buyNow = () => {
+        console.log("Buy")
+    }
 
     render() {
         const {navigation} = this.props;
@@ -150,7 +154,6 @@ class BuyformCart extends Component {
                         })}
 
 
-
                         <View
                             style={
                                 {
@@ -163,52 +166,9 @@ class BuyformCart extends Component {
                         >
 
                         </View>
-                        <Text style={styles.orderDetails}>Your Details</Text>
-                        <View style={styles.containerWidth}>
-
-                            <Text style={styles.label}>Your Name*</Text>
-                            <TextInput placeholder="Name" style={styles.input}/>
-                            <Text style={styles.label}>Phone*</Text>
-                            <TextInput placeholder="Enter Your Phone No" style={styles.input}/>
-                            <Text style={styles.label}>Email*</Text>
-                            <TextInput placeholder="Email" style={styles.input}/>
-                            <Text style={styles.label}>Address*</Text>
-                            <TextInput placeholder="Address" style={styles.input}/>
-                            <Text style={styles.label}>City*</Text>
-                            <TextInput value="Islamabad" editable={false} style={styles.readonly}
-                                       defaultValue="Islamabad"/>
-                            <Text style={styles.infoText}>*Only In Islamabad</Text>
-                            <Text style={styles.label}>Sector*</Text>
-                            <View style={{flexDirection: 'column', flex: 1,}}>
-                                <Picker style={{
-                                    width: 200,
-                                    borderBottomWidth: 1,
-                                    borderTopWidth: 1,
-                                    borderLeftWidth: 1,
-                                    borderRightWidth: 1
-                                }} selectedValue={this.state.sector} onValueChange={this.updateSectore}>
-                                    <Picker.Item label="G-13 Islamabad" value='G-13 Islamabad'/>
-                                    <Picker.Item label="G-14 Islamabad" value='G-14 Islamabad'/>
-                                    <Picker.Item label="G-15 Islamabad" value='G-15 Islamabad'/>
-                                    <Picker.Item label="G-16 Islamabad" value='G-16 Islamabad'/>
-                                    <Picker.Item label="G-17 Islamabad" value='G-17 Islamabad'/>
-                                    <Picker.Item label="G-18 Islamabad" value='G-18 Islamabad'/>
-
-                                </Picker>
-                            </View>
-
-                            <Text style={styles.colorBlue}>Terms & Conditions*</Text>
-                            <Text style={styles.infoText}>*Terms and Conditions applied.</Text>
-                            <Text style={styles.termsText}>* Your order will be delivered only on Wednesday and
-                                Saturday</Text>
-                            <Text style={styles.termsText}>* We will contact you to confirm your order</Text>
-
-                        </View>
-                        <View style={styles.deliverySection}>
-                            <Image style={styles.deliveryImge} source={require('../../assets/cash_on_delivery.jpg')}/>
-                            <Text style={styles.label}>Cash on Delivery</Text>
-                        </View>
+                        <FormDetails />
                     </View>
+
                 </ScrollView>
                 <View style={styles.grandTotal}>
                     <View style={styles.row}>
@@ -216,12 +176,13 @@ class BuyformCart extends Component {
                             Total:
                         </Text>
                         <Text style={styles.Rs}>
-                            Rs.{this.state.value}
+                            Rs.{total}
                         </Text>
                     </View>
-                    <Button type="solid" title="Buy Now"/>
+                    <Button type="solid" onPress={this.buyNow} title="Buy Now"/>
                 </View>
             </View>
+
         );
     }
 }
@@ -236,7 +197,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        maxHeight:100,
+        maxHeight: 100,
         borderTopWidth: 2,
 
     },
@@ -251,10 +212,8 @@ const styles = StyleSheet.create({
     productName: {
         fontSize: 14,
     },
-    quantityrow:{
+    quantityrow: {
         flex: 1, flexDirection: 'row',
-
-
 
     },
     productQuantity: {

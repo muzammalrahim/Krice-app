@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TextInput, Image, ScrollView, Button,Picker} from "react-native";
+import FormDetails from "./form_details";
 
 
 
@@ -140,7 +141,7 @@ class Buyform extends Component {
                                         </Picker>
                                     </View>
                                     <View style={styles.price}>
-                                        <Text>Rs {price}</Text>
+                                        <Text>Rs {this.state.value}</Text>
                                     </View>
                                 </View>
                                 <View style={styles.row}>
@@ -163,51 +164,7 @@ class Buyform extends Component {
                         >
 
                         </View>
-                        <Text style={styles.orderDetails}>Your Details</Text>
-                        <View style={styles.containerWidth}>
-
-                            <Text style={styles.label}>Your Name*</Text>
-                            <TextInput placeholder="Name" style={styles.input}/>
-                            <Text style={styles.label}>Phone*</Text>
-                            <TextInput placeholder="Enter Your Phone No" style={styles.input}/>
-                            <Text style={styles.label}>Email*</Text>
-                            <TextInput placeholder="Email" style={styles.input}/>
-                            <Text style={styles.label}>Address*</Text>
-                            <TextInput placeholder="Address" style={styles.input}/>
-                            <Text style={styles.label}>City*</Text>
-                            <TextInput value="Islamabad" editable={false} style={styles.readonly}
-                                       defaultValue="Islamabad"/>
-                            <Text style={styles.infoText}>*Only In Islamabad</Text>
-                            <Text style={styles.label}>Sector*</Text>
-                            <View style={{flexDirection: 'column', flex: 1,}}>
-                                <Picker style={{
-                                    width: 200,
-                                    borderBottomWidth: 1,
-                                    borderTopWidth: 1,
-                                    borderLeftWidth: 1,
-                                    borderRightWidth: 1
-                                }} selectedValue={this.state.sector} onValueChange={this.updateSectore}>
-                                    <Picker.Item label="G-13 Islamabad" value='G-13 Islamabad'/>
-                                    <Picker.Item label="G-14 Islamabad" value='G-14 Islamabad'/>
-                                    <Picker.Item label="G-15 Islamabad" value='G-15 Islamabad'/>
-                                    <Picker.Item label="G-16 Islamabad" value='G-16 Islamabad'/>
-                                    <Picker.Item label="G-17 Islamabad" value='G-17 Islamabad'/>
-                                    <Picker.Item label="G-18 Islamabad" value='G-18 Islamabad'/>
-
-                                </Picker>
-                            </View>
-
-                            <Text style={styles.colorBlue}>Terms & Conditions*</Text>
-                            <Text style={styles.infoText}>*Terms and Conditions applied.</Text>
-                            <Text style={styles.termsText}>* Your order will be delivered only on Wednesday and
-                                Saturday</Text>
-                            <Text style={styles.termsText}>* We will contact you to confirm your order</Text>
-
-                        </View>
-                        <View style={styles.deliverySection}>
-                            <Image style={styles.deliveryImge} source={require('../../assets/cash_on_delivery.jpg')}/>
-                            <Text style={styles.label}>Cash on Delivery</Text>
-                        </View>
+              <FormDetails />
                     </View>
                 </ScrollView>
                 <View style={styles.grandTotal}>
