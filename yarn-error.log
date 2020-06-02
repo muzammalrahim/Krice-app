@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\FAHADA~1\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+  C:\Program Files\nodejs\node.exe C:\Users\FAHADA~1\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add axios
 
 PATH: 
-  C:\Users\Fahad Ali\WebstormProjects\KriceApp\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\xampp\php;C:\Program Files\PuTTY\;C:\Program Files\Git LFS;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Program Files\nodejs\;C:\Users\Fahad Ali\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\FahadA~1\AppData\Roaming\npm;C:\Program Files\JetBrains\WebStorm 2019.2.3\bin;;C:\Users\Fahad Ali\AppData\Roaming\npm;C:\Users\Fahad Ali\AppData\Local\Programs\Python\Python38-32;C:\Users\Fahad Ali\AppData\Local\Programs\Python\Python38-32\Scripts
+  C:\Users\Fahad Ali\WebstormProjects\KriceApp\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\xampp\php;C:\Program Files\PuTTY\;C:\Program Files\Git LFS;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Program Files\nodejs\;C:\Users\Fahad Ali\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\FahadA~1\AppData\Roaming\npm;C:\Program Files\JetBrains\WebStorm 2019.2.3\bin;;C:\Users\Fahad Ali\AppData\Roaming\npm;C:\Users\Fahad Ali\AppData\Local\Programs\Python\Python38-32;C:\Users\Fahad Ali\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Program Files\heroku\bin
 
 Yarn version: 
   1.22.4
@@ -14,12 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: C:\Users\Fahad Ali\WebstormProjects\KriceApp\package.json: Unexpected token } in JSON at position 953
-      at JSON.parse (<anonymous>)
-      at C:\Users\FAHADA~1\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (C:\Users\FAHADA~1\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
-      at C:\Users\FAHADA~1\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+  Error: EPERM: operation not permitted, unlink 'C:\Users\Fahad Ali\WebstormProjects\KriceApp\node_modules\@babel\compat-data\node_modules\.bin'
 
 npm manifest: 
   {
@@ -49,7 +44,8 @@ npm manifest:
       "react-native-web": "~0.11.7",
       "react-navigation": "^4.3.9",
       "react-navigation-stack": "^2.4.0",
-  
+      "react-redux": "^5.0.7",
+      "redux": "^4.0.0"
     },
     "devDependencies": {
       "@babel/core": "^7.8.6",
@@ -940,7 +936,7 @@ Lockfile:
       pirates "^4.0.0"
       source-map-support "^0.5.16"
   
-  "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+  "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.8.4":
     version "7.9.6"
     resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
     integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
@@ -1876,11 +1872,6 @@ Lockfile:
       isobject "^3.0.0"
       static-extend "^0.1.1"
   
-  classnames@^2.2.6:
-    version "2.2.6"
-    resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
-    integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
-  
   cli-cursor@^2.1.0:
     version "2.1.0"
     resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
@@ -2157,7 +2148,7 @@ Lockfile:
       hyphenate-style-name "^1.0.2"
       isobject "^3.0.1"
   
-  csstype@^2.2.0, csstype@^2.6.7:
+  csstype@^2.2.0:
     version "2.6.10"
     resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
     integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
@@ -2268,14 +2259,6 @@ Lockfile:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/didyoumean/-/didyoumean-1.2.1.tgz#e92edfdada6537d484d73c0172fd1eba0c4976ff"
     integrity sha1-6S7f2tplN9SE1zwBcv0eugxJdv8=
-  
-  dom-helpers@^5.0.1:
-    version "5.1.4"
-    resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.1.4.tgz#4609680ab5c79a45f2531441f1949b79d6587f4b"
-    integrity sha512-TjMyeVUvNEnOnhzs6uAn9Ya47GmMo3qq7m+Lr/3ON0Rs5kHvb8I+SQYjLUSYn7qhEm0QjW0yrBkvz9yOrwwz1A==
-    dependencies:
-      "@babel/runtime" "^7.8.7"
-      csstype "^2.6.7"
   
   ee-first@1.1.1:
     version "1.1.1"
@@ -2898,7 +2881,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
     integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
   
-  hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.2:
+  hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
     version "3.3.2"
     resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
     integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -4460,10 +4443,15 @@ Lockfile:
       prop-types "^15.6.2"
       scheduler "^0.15.0"
   
-  react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
+  react-is@^16.12.0, react-is@^16.13.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
     version "16.13.1"
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+  
+  react-lifecycles-compat@^3.0.0:
+    version "3.0.4"
+    resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+    integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
   
   react-native-elements@^2.0.0:
     version "2.0.0"
@@ -4537,6 +4525,11 @@ Lockfile:
     version "0.1.10"
     resolved "https://registry.yarnpkg.com/react-native-select-plus/-/react-native-select-plus-0.1.10.tgz#3136f7683c86c56d96176dddebdd6f4161c2f79f"
     integrity sha512-TBSBxOndgERDGGwiEQE9I1vcL3PiNwl/o4y4Jb1bXWkmO1PcuBVUNubb1LVa5KEH3aeqfBl+5umQ2lwQH9F5ZA==
+  
+  react-native-simple-toast@^1.1.2:
+    version "1.1.2"
+    resolved "https://registry.yarnpkg.com/react-native-simple-toast/-/react-native-simple-toast-1.1.2.tgz#007de57e21986e811b4bbc2d3a6de949c0221df9"
+    integrity sha512-p13p6Db9viLBxbAlicVLD6CcrbkmqQoEjP20vY+SxbO3y5cdmY0AOn/FiMC+iuC4eQxk0SFeJm4PFRWby/ntyg==
   
   react-native-status-bar-height@^2.2.0:
     version "2.5.0"
@@ -4623,6 +4616,19 @@ Lockfile:
       "@react-navigation/core" "^3.7.6"
       "@react-navigation/native" "^3.7.13"
   
+  react-redux@^5.0.7:
+    version "5.1.2"
+    resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.1.2.tgz#b19cf9e21d694422727bf798e934a916c4080f57"
+    integrity sha512-Ns1G0XXc8hDyH/OcBHOxNgQx9ayH3SPxBnFCOidGKSle8pKihysQw2rG/PmciUQRoclhVBO8HMhiRmGXnDja9Q==
+    dependencies:
+      "@babel/runtime" "^7.1.2"
+      hoist-non-react-statics "^3.3.0"
+      invariant "^2.2.4"
+      loose-envify "^1.1.0"
+      prop-types "^15.6.1"
+      react-is "^16.6.0"
+      react-lifecycles-compat "^3.0.0"
+  
   react-refresh@^0.4.0:
     version "0.4.2"
     resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.4.2.tgz#54a277a6caaac2803d88f1d6f13c1dcfbd81e334"
@@ -4632,25 +4638,6 @@ Lockfile:
     version "0.13.4"
     resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
     integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
-  
-  react-toastify@^6.0.4:
-    version "6.0.4"
-    resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.4.tgz#5a06f9ef29b9f257813fd0ab7c5b1f2aa9e33551"
-    integrity sha512-ieNHqMZim/8h0NfSigWsmqly9dG4JwtTnBCq3y5UVua73Os8VyvsZkdu5CHORqXXgIe9CGIIPz4AbIiFXWkLHg==
-    dependencies:
-      classnames "^2.2.6"
-      prop-types "^15.7.2"
-      react-transition-group "^4.4.1"
-  
-  react-transition-group@^4.4.1:
-    version "4.4.1"
-    resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
-    integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
-    dependencies:
-      "@babel/runtime" "^7.5.5"
-      dom-helpers "^5.0.1"
-      loose-envify "^1.4.0"
-      prop-types "^15.6.2"
   
   react@~16.9.0:
     version "16.9.0"
@@ -4690,6 +4677,14 @@ Lockfile:
       safe-buffer "~5.1.1"
       string_decoder "~1.1.1"
       util-deprecate "~1.0.1"
+  
+  redux@^4.0.0:
+    version "4.0.5"
+    resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.5.tgz#4db5de5816e17891de8a80c424232d06f051d93f"
+    integrity sha512-VSz1uMAH24DM6MF72vcojpYPtrTUu3ByVWfPL1nPfVRb5mZVTve5GnNCUV53QM/BZ66xfWrm0CTWoM+Xlz8V1w==
+    dependencies:
+      loose-envify "^1.4.0"
+      symbol-observable "^1.2.0"
   
   regenerate-unicode-properties@^8.2.0:
     version "8.2.0"
@@ -5303,6 +5298,11 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.1.tgz#8340fc4702c3122df5d22288f88283f513d3fdd4"
     integrity sha1-g0D8RwLDEi310iKI+IKD9RPT/dQ=
+  
+  symbol-observable@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+    integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
   
   temp@0.8.3:
     version "0.8.3"

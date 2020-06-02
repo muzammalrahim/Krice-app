@@ -111,7 +111,6 @@ class BuyformCart extends Component {
         const data = navigation.getParam('data');
         const total = navigation.getParam('total');
 
-
         return (
             <View style={styles.container}>
                 <ScrollView>

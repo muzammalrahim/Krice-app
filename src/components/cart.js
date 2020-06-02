@@ -139,29 +139,7 @@ class Cart extends Component {
         this.setState({valueSelected: value})
     }
 
-    // static getDerivedStateFromProps(props,state) {
-    //
-    //      //  this.setState({
-    //      //     data: this.props.cartItems,
-    //      //
-    //      // }, () => {
-    //      //
-    //      //     this.setState({
-    //      //         data: this.state.data.map((data, index) => {
-    //      //             data.total = data.price,
-    //      //                 data.quantity = 1
-    //      //             return data;
-    //      //         })
-    //      //     })
-    //      // })
-    //     return {
-    //         data: props.cartItems.map((data, index) => {
-    //             data.total = data.price,
-    //                 data.quantity = 1
-    //             return data;
-    //         })
-    //     }
-    //  }
+
     componentDidMount() {
         this.setState({
             data: this.props.cartItems.map((data, index) => {
@@ -172,7 +150,6 @@ class Cart extends Component {
         },()=>{
             if(this.props.cartItems.length > 0) {
                 this.sum_total = this.props.cartItems.reduce((first, elements) => {
-                    console.log("firstfirstfirstfirstfirst", elements)
                     return (first + elements.total)
                 },0)
             }

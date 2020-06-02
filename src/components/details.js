@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Vibration} from 'react-native';
+import {View, Text, StyleSheet, Button, Vibration,ToastAndroid } from 'react-native';
 import {Card} from 'react-native-elements';
 import {connect} from "react-redux";
 import {withNavigation} from "react-navigation";
-import Toast from "react-native-simple-toast";
+
 
 class Details extends React.Component {
     render() {
@@ -12,6 +12,7 @@ class Details extends React.Component {
         const img = navigation.getParam('img');
         const price = navigation.getParam('price');
         const name = navigation.getParam('name');
+        const description = navigation.getParam('description');
 
         return (
             <View style={styles.container}>
@@ -30,26 +31,20 @@ class Details extends React.Component {
                             Description:
                         </Text>
                         <Text>
-                            Etiam commodo pretium dolor vitae convallis. Aliquam porttitor lacinia purus, sed eleifend
-                            turpis luctus sed. Aliquam ac elit sit amet magna dignissim tempus. Vestibulum ultrices,
-                            odio eu tempus dignissim, dui nibh congue diam, quis ornare felis ligula eget neque.
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-                            egestas. Quisque vitae tincidunt purus, ut rutrum felis. Aenean augue turpis, egestas sit
-                            amet leo sit amet, dictum iaculis urna. Donec aliquet commodo lorem vitae sollicitudin.
-                            Donec efficitur odio id est ornare imperdiet. Proin pulvinar diam vel fringilla malesuada.
-                            Ut sit amet nibh ac turpis tempus tristique. Pellentesque nec velit eget mi consectetur
-                            fermentum.
+               {description}
                         </Text>
                     </View>
                 </View>
                 <View style={styles.buttons}>
                     <View style={styles.row}>
+                        <View style={{flexDirection:'row', justifyContent:'space-around',marginBottom:10}}>
                         <Button title="Add to cart" type="solid"  onPress={()=>{this.showToast()}}/>
                         <Button title="Buy Now" type="solid"  onPress={() => this.props.navigation.navigate('Buy', {
                             name: name,
                             price: price,
                             img: img
                         })}/>
+                    </View>
                     </View>
                 </View>
             </View>
@@ -67,7 +62,7 @@ class Details extends React.Component {
             for(let i=0;i<this.props.cartItems.length;i++){
 
                 if (data[i].id == id){
-                    Toast.show("Item Is already in Cart",Toast.SHORT);
+                    ToastAndroid .show("Item Is already in Cart",ToastAndroid .SHORT);
                     checker =true;
                     Vibration.vibrate()
                     break;
@@ -81,7 +76,7 @@ class Details extends React.Component {
                     price: price,
                     img: img
                 })
-                Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+                ToastAndroid .show('Item Has Been Added to Cart.', ToastAndroid .SHORT);
             }
 
 
@@ -92,7 +87,7 @@ class Details extends React.Component {
                 price:price,
                 img: img
             })
-            Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+            ToastAndroid .show('Item Has Been Added to Cart.', ToastAndroid .SHORT);
         }
     }
 
@@ -100,7 +95,8 @@ class Details extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+
     },
     descriptionContainer: {
         marginTop: 15,
@@ -109,6 +105,7 @@ const styles = StyleSheet.create({
     },
     description: {
         width: '80%',
+
     },
     textSize: {
         fontSize: 24,
@@ -117,14 +114,15 @@ const styles = StyleSheet.create({
     buttons: {
         width: "100%",
         flex: 1,
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+
     },
     row: {
         width: "100%",
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexGrow: 1,
-        alignItems: "center",
-        justifyContent: "space-around"
+
+        justifyContent: "flex-end"
     }
 });
 const mapDispatchToProps = (dispatch) => {

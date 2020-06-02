@@ -9,7 +9,7 @@ class Header extends Component {
     render() {
         return (
             <View style={styles.header}>
-                <Image source={require('../../assets/ecommerce.jpg')} style={styles.cart} />
+                <Image source={require('../../assets/splash.jpg')} style={styles.cart} />
                 <Text style={styles.logo}>Krice-app </Text>
                 <ShoppingCartIcon style={{alignSelf:"center"}}/>
             </View>

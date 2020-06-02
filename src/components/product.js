@@ -1,10 +1,10 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity, Vibration} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity, Vibration,ToastAndroid } from 'react-native';
 import {Card, Button} from 'react-native-elements';
 import {withNavigation} from 'react-navigation';
 import ImageOverlay from "./imageOverlay";
 import {connect} from "react-redux";
-import Toast from 'react-native-simple-toast';
+
 
 class Product extends React.Component {
 
@@ -15,7 +15,8 @@ class Product extends React.Component {
                 id: this.props.product.id,
                 name: this.props.product.name,
                 price: this.props.product.price,
-                img: this.props.product.img
+                img: this.props.product.img,
+                description:this.props.product.description
             })}>
                 <Card
                     image={{uri: this.props.product.img}}>
@@ -36,7 +37,8 @@ class Product extends React.Component {
                                 id: this.props.product.id,
                                 name: this.props.product.name,
                                 price: this.props.product.price,
-                                img: this.props.product.img
+                                img: this.props.product.img,
+
                             })}/>
                     <Button style={styles.btnStyle}
                             type="solid"
@@ -59,7 +61,7 @@ class Product extends React.Component {
             for (let i = 0; i < this.props.cartItems.length; i++) {
 
                 if (data[i].id == this.props.product.id) {
-                    Toast.show("Item Is already in Cart", Toast.SHORT);
+                    ToastAndroid.show("Item Is already in Cart", ToastAndroid.SHORT);
                     checker = true;
                     Vibration.vibrate()
                     break;
@@ -73,7 +75,7 @@ class Product extends React.Component {
                     price: this.props.product.price,
                     img: this.props.product.img
                 })
-                Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+                ToastAndroid.show('Item Has Been Added to Cart.', ToastAndroid.SHORT);
             }
 
 
@@ -84,7 +86,7 @@ class Product extends React.Component {
                 price: this.props.product.price,
                 img: this.props.product.img
             })
-            Toast.show('Item Has Been Added to Cart.', Toast.SHORT);
+            ToastAndroid.show('Item Has Been Added to Cart.', ToastAndroid.SHORT);
         }
     }
 
