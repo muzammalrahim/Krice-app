@@ -1,1 +1,1 @@
-export const base_url = 'https://65f706f4307e.ngrok.io/krice_api/api/'
+export const base_url = 'https://7aa71bebd5ec.ngrok.io/krice_api/api/'

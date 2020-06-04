@@ -3,6 +3,7 @@ import {View, StyleSheet, ScrollView,ActivityIndicator} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import Product from '../components/product';
 import {base_url} from '../Back_End_URL/backend_api_urls'
+import Error from "./error";
 const axios = require('axios');
 
 // const BASE_URL = 'https://raw.githubusercontent.com/sdras/sample-vue-shop/master/dist';
@@ -60,6 +61,10 @@ class Contentcontainer extends React.Component {
             })
         } catch (error) {
             console.log(error)
+            this.setState({
+                checker:true,
+                data:''
+            })
         }
         // fetch('http://localhost:3000/api/getuser').then(response => console.log( response)).catch(reason => console.log(reason))
 
@@ -74,7 +79,7 @@ class Contentcontainer extends React.Component {
                     height: "100%",
                 }}>
                 {
-                  this.state.checker ?  this.state.data.map((product, index) => {
+                  this.state.checker ? this.state.data!='' ?  this.state.data.map((product, index) => {
                         return (
                             <View style={styles.row} key={index + 1}>
                                 <View style={styles.col}>
@@ -82,7 +87,7 @@ class Contentcontainer extends React.Component {
                                 </View>
                             </View>
                         )
-                    }) :
+                    }):<Error/> :
 
                     <ActivityIndicator size="large" color="#0000ff" />
 
