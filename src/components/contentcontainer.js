@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView,ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ScrollView,ActivityIndicator,TextInput} from 'react-native';
 import {withNavigation} from 'react-navigation';
 import Product from '../components/product';
 import {base_url} from '../Back_End_URL/backend_api_urls'
