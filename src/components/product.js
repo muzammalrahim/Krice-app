@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, StyleSheet, TouchableOpacity, Vibration,ToastAndroid } from 'react-native';
 import {Card, Button} from 'react-native-elements';
 import {withNavigation} from 'react-navigation';
-import ImageOverlay from "./imageOverlay";
+
 import {connect} from "react-redux";
 
 
@@ -20,7 +20,7 @@ class Product extends React.Component {
             })}>
                 <Card
                     image={{uri: this.props.product.img}}>
-                    <ImageOverlay header="Avaiable"/>
+
                     <Text style={styles.textName} h2>
                         {this.props.product.name}
                     </Text>

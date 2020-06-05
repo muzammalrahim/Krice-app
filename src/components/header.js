@@ -17,12 +17,8 @@ class Header extends Component {
     render() {
         return (
             <View style={styles.header}>
-                <TouchableOpacity onPress={this.navigation}>
-                <Icon name="ios-person" size={50}  />
-                </TouchableOpacity>
-                <View style={{flexDirection:'row',flexGrow:2,justifyContent:'center' }}>
-                <Image source={require('../../assets/splash.jpg')} style={styles.cart} />
 
+                <View style={{flexDirection:'row',flexGrow:1,justifyContent:'center' }}>
                 <Text style={styles.logo}>Krice-app </Text>
                 </View>
                 <ShoppingCartIcon style={{alignSelf:"center"}}/>

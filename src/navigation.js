@@ -9,8 +9,8 @@ import Buyform from "./components/buyform";
 import ShoppingCartIcon from "./components/shoppingCartIcon";
 import {createAppContainer} from "react-navigation";
 import BuyformCart from "./components/buyformcart";
-import ShopkeeperLogin from "./components/shopkeeper_login";
-import ShopkeeperLandingPage from "./components/shopkeeper_landingPage";
+
+
 const ImageHeader = props => (
         <Header {...props} style={{ backgroundColor: 'transparent' }}/>
 );
@@ -37,14 +37,7 @@ const AppNavigator = createStackNavigator(
             screen: BuyformCart,
             navigationOptions: { title: 'Buy' }
         },
-        ShopkeeperLogin: {
-            screen: ShopkeeperLogin,
-            navigationOptions: { title: 'Shop  Login' }
-        },
-        Shopkeeper: {
-            screen:  ShopkeeperLandingPage,
-            navigationOptions: { title: 'Shopkeeper' }
-        }
+
 
     },
     {
