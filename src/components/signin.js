@@ -4,10 +4,10 @@ import {
     AsyncStorage,
     Button,
     StatusBar,
-    StyleSheet,
+    StyleSheet, Text, TouchableOpacity,
     View,
 } from 'react-native';
-
+import Icon from 'react-native-vector-icons/Ionicons'
 
 class SignInScreen extends React.Component {
     static navigationOptions = {
@@ -17,7 +17,15 @@ class SignInScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button title="Sign in!" onPress={this._signInAsync}/>
+                <TouchableOpacity>
+                <View style={{flexDirection:"row" ,justifyContent:'space-around',alignItems:"center",backgroundColor:"lightgrey",elevation:6,width:"50%",padding:6,borderRadius:6}}>
+                    <Icon name="logo-facebook" size={29} /><Text >Facebook Sign In</Text>
+                </View>
+                </TouchableOpacity>
+
+                <View style={{flexDirection:'row',marginTop:9,width:"20%"}}>
+                <Button style={{paddingLeft:20}} title="Sign in!" onPress={this._signInAsync}/>
+                </View>
             </View>
         );
     }

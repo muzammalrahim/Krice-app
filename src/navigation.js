@@ -19,6 +19,7 @@ import {
     View,
 } from 'react-native';
 import SignInScreen from "./components/signin";
+import ViewOrders from "./components/viewOrders";
 
 
 const ImageHeader = props => (
@@ -107,37 +108,18 @@ const AppNavigator = createStackNavigator(
         initialRouteName: "Home"
     }
 );
+const orderNavigator= createStackNavigator({
+    Order:{
+        screen:ViewOrders,
+        navigationOptions: {title: 'View Orders'}
+    },
 
-// const AuthSack = createStackNavigator(
-//     {
-//         Home: {
-//             screen: Home,
-//             navigationOptions: {   header: (props) => <ImageHeader {...props} />
-//             }
-//         },
-//         Details: {
-//             screen: Details,
-//             navigationOptions: { headerTitle: 'Details',headerRight:()=>(<ShoppingCartIcon/>) }
-//         },
-//         Cart: {
-//             screen: Cart,
-//             navigationOptions: { title: 'Cart' }
-//         },
-//         Buy: {
-//             screen: Buyform,
-//             navigationOptions: { title: 'Buy' }
-//         },
-//         BuyCart: {
-//             screen: BuyformCart,
-//             navigationOptions: { title: 'Buy' }
-//         },
-//
-//
-//     },
-//     {
-//         initialRouteName: "Home"
-//     }
-// );
+},
+{
+    initialRouteName: "Order"
+}
+)
+
 const DrawerWithLogoutButton = (props) => {
     async function _signOutAsync() {
         await AsyncStorage.clear();
@@ -167,7 +149,7 @@ const DrawerWithLogoutButton = (props) => {
 
 const DrawerNav = createDrawerNavigator({
         DashboardStack: AppNavigator,
-        ViewOrders: AppNavigator,
+        ViewOrders: orderNavigator,
     }, {
         contentComponent: DrawerWithLogoutButton,
     }

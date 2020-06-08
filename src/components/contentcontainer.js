@@ -6,8 +6,7 @@ import {base_url} from '../Back_End_URL/backend_api_urls'
 import Error from "./error";
 const axios = require('axios');
 
-const BASE_URL = 'https://raw.githubusercontent.com/sdras/sample-vue-shop/master/dist';
-// const Base_Product_Api = 'http://localhost/krice_api/api/products'
+
 const products = [
     {
         id: 1,
@@ -17,21 +16,21 @@ const products = [
     },
     {
         id: 2,
-        name: 'Camo Fang Backpack Jungle',
-        price: 1000,
-        img: `${BASE_URL}/jacket1.png`
+        name: 'Sela Super Fine',
+        price: 750,
+        img: `https://4.imimg.com/data4/SR/FX/MY-166470/indian-long-grain-1121super-kernal-sela-basmati-rice-500x500.png`
     },
     {
         id: 3,
-        name: 'Parka and Quilted Liner Jacket',
-        price: 1500,
-        img: `${BASE_URL}/jacket2.png`
+        name: 'Awami Rice',
+        price: 1000,
+        img: `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSIh1EQi6LEJJIUYXsYVrvEfKJnqmoAdaAOWPjFbCIk48VD6GPy&usqp=CAU`
     },
     {
         id: 4,
-        name: 'Cotton Black Cap',
-        price: 300,
-        img: `${BASE_URL}/hat1.png`
+        name: 'KT Basmati',
+        price: 900,
+        img: `https://4.imimg.com/data4/JT/LW/MY-19725769/basmati-rice-250x250.jpg`
     },
 ];
 
