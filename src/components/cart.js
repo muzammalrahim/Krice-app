@@ -177,7 +177,7 @@ propsChange = ()=>{
                 if (this.props.cartItems.length > 0) {
                     if (this.props.cartItems.length > 0) {
                         this.sum_total = this.props.cartItems.reduce((first, elements) => {
-                            console.log("firstfirstfirstfirstfirst", elements)
+
                             return (first + elements.price)
                         }, 0)
                         for (let key in this.quantity) {
