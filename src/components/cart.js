@@ -1,40 +1,33 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView, Image, Button, Picker, TouchableOpacity,Alert} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Image, Button, Picker, TouchableOpacity, Alert} from 'react-native';
 
 import {connect} from "react-redux";
 
 
 class Cart extends Component {
-    price5kg;
-    price10kg;
-    price15kg;
-    currentItem;
-    sum_total=0
 
+    sum_total = 0
+    product_quantity_index=0
     quantity = [];
+    product_quantity=[5,25]
 
     constructor(props, context) {
         super(props, context);
 
-        this.price5kg = 1500
-        this.price10kg = this.price5kg * 2;
-        this.price15kg = this.price5kg * 3;
-        this.currentItem = '5KG';
-        this.currentItemValue = this.price5kg;
-        this.price5kg = 1500;
+
         this.state = {
             data: [],
-            sum_total:0,
-
+            sum_total: 0,
 
         };
         this.quantityIncrement = this.quantityIncrement.bind(this);
         this.quantityDecrement = this.quantityDecrement.bind(this);
 
-        this.currentItem = this.price5kg;
-        for (let i=0;i<this.props.cartItems.length ; i++){
+
+        for (let i = 0; i < this.props.cartItems.length; i++) {
             this.quantity[i] = 1
         }
+
 
     }
 
@@ -60,35 +53,32 @@ class Cart extends Component {
 
         this.setState({
             data: this.props.cartItems
-        },()=>{
+        }, () => {
 
-            let stateCopy = Object.assign({},this.state.data)
+            let stateCopy = Object.assign({}, this.state.data)
             // console.log("stateCopy[index]stateCopy[index]",index,stateCopy[index]);
             stateCopy[index].quantity = this.quantity[index]
             stateCopy[index].total = this.quantity[index] * price
             this.setState(stateCopy);
-            console.log(this.state.data)
 
-            if(this.props.cartItems.length > 0) {
+            if (this.props.cartItems.length > 0) {
                 this.sum_total = this.props.cartItems.reduce((first, elements) => {
-                    console.log("firstfirstfirstfirstfirst", elements)
+
                     return (first + elements.total)
-                },0)
+                }, 0)
             }
             this.setState({
-                sum_total:this.sum_total
-            },()=>{
+                sum_total: this.sum_total
+            }, () => {
                 console.log(this.state)
             })
         })
 
 
-
-
     }
 
-    quantityDecrement(index,price) {
-        // console.log("eeeeeeee",e);
+    quantityDecrement(index, price) {
+
         if (this.quantity[index] > 1) {
             this.quantity[index] = this.quantity[index] - 1;
             this.setState({
@@ -104,7 +94,7 @@ class Cart extends Component {
 
             if (this.props.cartItems.length > 0) {
                 this.sum_total = this.props.cartItems.reduce((first, elements) => {
-                    console.log("firstfirstfirstfirstfirst", elements)
+
                     return (first + elements.total)
                 }, 0)
             }
@@ -116,27 +106,57 @@ class Cart extends Component {
         }
     }
 
-    updateUser = (value) => {
+    updateUser = (itemValue,index,price) => {
+
+        console.log(Number(itemValue),index,price)
+        this.setState({
+            data: this.props.cartItems
+        }, () => {
+
+            let stateCopy = Object.assign({}, this.state.data)
+            // console.log("stateCopy[index]stateCopy[index]",index,stateCopy[index]);
+            stateCopy[index].price =  price * Number(itemValue)
+
+            this.setState(stateCopy);
+
+            if (this.props.cartItems.length > 0) {
+                this.sum_total = this.props.cartItems.reduce((first, elements) => {
+
+                    return (first + elements.total)
+                }, 0)
+            }
+            this.setState({
+                sum_total: this.sum_total
+            }, () => {
+                console.log(this.state)
+            })
+        })
 
         // console.log(value)
-        if (value == 1500) {
-            this.currentItem = "5KG"
-            this.setState({value: this.state.quantity * this.price5kg});
-            this.currentItemValue = 1500;
-        }
-        if (this.price10kg == (value)) {
-            this.currentItem = "10KG"
-            this.setState({value: this.state.quantity * this.price10kg});
-            this.currentItemValue = this.price10kg
-
-        }
-        if (this.price15kg == (value)) {
-            this.currentItem = "15KG"
-            this.setState({value: this.state.quantity * this.price15kg});
-            this.currentItemValue = this.price15kg
-
-        }
-        this.setState({valueSelected: value})
+        // if (value == 1500) {
+        //     this.currentItem = "5KG"
+        //     this.setState({value: this.state.quantity * this.price5kg});
+        //     this.currentItemValue = 1500;
+        // }
+        // if (this.price10kg == (value)) {
+        //     this.currentItem = "10KG"
+        //     this.setState({value: this.state.quantity * this.price10kg});
+        //     this.currentItemValue = this.price10kg
+        //
+        // }
+        // if (this.price15kg == (value)) {
+        //     this.currentItem = "15KG"
+        //     this.setState({value: this.state.quantity * this.price15kg});
+        //     this.currentItemValue = this.price15kg
+        //
+        // }
+        // if (this.price15kg == (value)) {
+        //     this.currentItem = "25KG"
+        //     this.setState({value: this.state.quantity * this.price25kg});
+        //     this.currentItemValue = this.price25kg
+        //
+        // }
+        // this.setState({valueSelected: value})
     }
 
 
@@ -147,14 +167,14 @@ class Cart extends Component {
                     data.quantity = 1
                 return data;
             })
-        },()=>{
-            if(this.props.cartItems.length > 0) {
+        }, () => {
+            if (this.props.cartItems.length > 0) {
                 this.sum_total = this.props.cartItems.reduce((first, elements) => {
                     return (first + elements.total)
-                },0)
+                }, 0)
             }
             this.setState({
-                sum_total:this.sum_total
+                sum_total: this.sum_total
             })
         })
 
@@ -162,18 +182,18 @@ class Cart extends Component {
     }
 
 
-propsChange = ()=>{
+    propsChange = () => {
         // for(let key in this.quantity){
         //     this.quantity[key] =1;
         // }
-        setTimeout(()=>{
+        setTimeout(() => {
             this.setState({
                 data: this.props.cartItems.map((data, index) => {
                     data.total = data.price,
                         data.quantity = 1
                     return data;
                 })
-            },()=> {
+            }, () => {
                 if (this.props.cartItems.length > 0) {
                     if (this.props.cartItems.length > 0) {
                         this.sum_total = this.props.cartItems.reduce((first, elements) => {
@@ -189,18 +209,19 @@ propsChange = ()=>{
                     })
                 }
             })
-        },159)
+        }, 159)
 
 
-}
-confirm=()=>{
+    }
+    confirm = () => {
 
 
-    this.props.navigation.navigate('BuyCart',{
-        data:this.state.data,
-        total:this.state.sum_total
-    })
-}
+        this.props.navigation.navigate('BuyCart', {
+            data: this.state.data,
+            total: this.state.sum_total
+        })
+    }
+
     render() {
         // console.log('props',this.props.cartItems)
         let innerContent = '';
@@ -217,25 +238,30 @@ confirm=()=>{
                                 <Text style={styles.productName}>Name: {data.name}</Text>
 
                                 <View style={styles.row}>
-                                    <View style={{flexDirection: 'row'}}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        borderBottomWidth: 1,
+                                        borderRightWidth: 1,
+                                        borderLeftWidth: 1,
+                                        borderTopWidth: 1
+                                    }}>
                                         <Picker style={{
                                             width: 150,
                                             borderBottomWidth: 1,
                                             borderTopWidth: 1,
                                             borderLeftWidth: 1,
                                             borderRightWidth: 1
-                                        }} selectedValue={this.state.valueSelected} onValueChange={this.updateUser}>
-                                            <Picker.Item label="5 KG" value={this.price5kg}/>
-                                            <Picker.Item label="10 KG" value={this.price10kg}/>
-                                            <Picker.Item label="15 KG" value={this.price15kg}/>
+                                        }} selectedValue={this.state[index].value}
+                                                onValueChange={(itemValue,itemIndex) => this.updateUser(itemValue,index,data.price)}>
+                                            <Picker.Item label="5 KG" value="1"/>
+                                            <Picker.Item label="25 KG" value="5"/>
                                         </Picker>
                                     </View>
-                                    <View style={styles.price}>
-                                        <Text>Rs {this.quantity[index] * data.price}</Text>
-                                    </View>
+
                                     <TouchableOpacity onPress={() => {
-                                        this.props.removeItem(data); this.propsChange();
-                                    }}>
+                                        this.props.removeItem(data);
+                                        this.propsChange();
+                                    }} style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
                                         <View style={{
                                             position: 'relative',
                                             height: 30,
@@ -253,12 +279,34 @@ confirm=()=>{
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={styles.row}>
-                                    <Button color='lightgray' title='-'
-                                            onPress={() => {this.quantityDecrement(index, data.price)}}/>
+                                <View style={styles.price}>
+                                    <Text style={{fontSize: 18}}>Rs {this.quantity[index] * data.price}</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', justifyContent: "center", alignItems: 'center'}}>
+
+                                    <TouchableOpacity style={{
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: 20,
+                                        backgroundColor: 'lightgrey',
+                                        width: 20
+                                    }}
+                                                      onPress={() => {
+                                                          this.quantityDecrement(index, data.price)
+                                                      }}>
+                                        <Text>-</Text>
+                                    </TouchableOpacity>
                                     <Text style={{padding: 5}}>{this.quantity[index]}</Text>
-                                    <Button style={{marginRight: 10}} title='+'
-                                            onPress={() => this.quantityIncrement(index, data.price)}/>
+                                    <TouchableOpacity style={{
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: 20,
+                                        backgroundColor: 'skyblue',
+                                        width: 20
+                                    }}
+                                                      onPress={() => this.quantityIncrement(index, data.price)}>
+                                        <Text>+</Text>
+                                    </TouchableOpacity>
                                 </View>
 
                             </View>
@@ -277,7 +325,7 @@ confirm=()=>{
                         Rs.{this.state.sum_total}
                     </Text>
                 </View>
-                    <Button type="solid" onPress={()=>this.confirm()} title="Confirm"/>
+                    <Button type="solid" onPress={() => this.confirm()} title="Confirm"/>
                 </View>
             </View>
         } else {
@@ -314,11 +362,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     img: {
+        marginTop: 20,
         width: 50,
-        height: 80,
+        height: 50,
     },
     productName: {
-        fontSize: 14,
+        fontSize: 19,
+        marginBottom: 18
     },
     productQuantity: {
         fontSize: 14,
@@ -328,7 +378,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginTop: 10,
         flex: 1,
-
         flexDirection: 'row',
         alignItems: "center"
 
@@ -336,10 +385,10 @@ const styles = StyleSheet.create({
     row: {flexDirection: 'row'},
     rightcol: {flexDirection: 'column', marginLeft: 30},
     price: {
-        marginTop: 20,
+        marginTop: 0,
         marginLeft: 5,
-        fontWeight: 'bold'
-
+        fontWeight: 'bold',
+        marginBottom: 10
     },
     total: {
         flexDirection: 'row',
@@ -348,8 +397,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#ececec",
         justifyContent: "space-between",
         fontWeight: 'bold',
-
-
     },
     totalText: {
         fontSize: 20,
@@ -371,7 +418,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.44,
         shadowRadius: 10.32,
-
         elevation: 16,
     },
     Rs: {

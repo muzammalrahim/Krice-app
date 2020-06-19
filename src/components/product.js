@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity, Vibration,ToastAndroid } from 'react-native';
+import {Text, StyleSheet, TouchableOpacity, Vibration, ToastAndroid, View} from 'react-native';
 import {Card, Button} from 'react-native-elements';
 import {withNavigation} from 'react-navigation';
 
@@ -30,7 +30,8 @@ class Product extends React.Component {
                     <Text h6 style={styles.description}>
                         added 2h ago
                     </Text>
-                    <Button style={styles.btnStyle}
+                    <View style={{flexDirection:'row',width:"100%",justifyContent:'space-around',marginTop:10}}>
+                    <Button
                             type="outline"
                             title='Buy now'
                             onPress={() => this.props.navigation.navigate('Buy', {
@@ -40,13 +41,14 @@ class Product extends React.Component {
                                 img: this.props.product.img,
 
                             })}/>
-                    <Button style={styles.btnStyle}
+                    <Button
                             type="solid"
                             title='Add To Cart'
                             onPress={() => {
                                 this.showToast()
                             }}
                     />
+                    </View>
 
 
                 </Card>

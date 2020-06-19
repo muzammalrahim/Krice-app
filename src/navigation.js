@@ -52,10 +52,8 @@ class AuthLoadingScreen extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(() => {
+
             this._bootstrapAsync();
-            console.log("s")
-        }, 1000)
 
     }
 }
@@ -108,16 +106,18 @@ const AppNavigator = createStackNavigator(
         initialRouteName: "Home"
     }
 );
-const orderNavigator= createStackNavigator({
-    Order:{
-        screen:ViewOrders,
-        navigationOptions: {title: 'View Orders'}
-    },
+const orderNavigator = createStackNavigator({
+        Order: {
+            screen: ViewOrders,
+            navigationOptions: {
+                header: (props) => <ImageHeader {...props} />
+            }
+        },
 
-},
-{
-    initialRouteName: "Order"
-}
+    },
+    {
+        initialRouteName: "Order"
+    }
 )
 
 const DrawerWithLogoutButton = (props) => {
